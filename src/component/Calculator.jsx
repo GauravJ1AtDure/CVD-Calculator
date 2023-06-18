@@ -2,32 +2,33 @@ import React , {useState, useEffect} from 'react'
 import regionlists from './RegionData';
 
 function Calculator() {
+   const [regionOfCountries, setRegionOfCountries]=useState(regionlists)
     const [countryArr, setCountryArr] = useState([]);
     const [labBasedArr, setLabBasedArr]=useState([]);
     const [nonLabBasedArr, setNonLabBasedArr]=useState([]);
     const [country, setCountry]=useState('');
-    const [region, setRegion]=useState('')
-    const [gender, setGender]=useState('');
+    const [region, setRegion]=useState()
+    const [gender, setGender]=useState();
     const [useEffectArr, setUseEffectArr]=useState(1);
-    const [regionOfCountries, setRegionOfCountries]=useState([])
     const [calArr, setCalArr]=useState([])
 
 
 
     useEffect(() => {
 
-         setRegionOfCountries(regionlists)
+         //setRegionOfCountries(regionlists)
          getCountryData()
          getLabBasedData()
          getNonLabBasedData()
-         
+        // getArr()
      },[useEffectArr]);
+
 
      const handleChange = (e,c) => {
       setUseEffectArr(useEffectArr+1)
       c=e.target.value
       setCountry(c)
-      let reg=regionOfCountries.map((val)=>val[c])
+      let reg=regionOfCountries[0][c];
       setRegion(reg)
       };
 
@@ -61,7 +62,7 @@ function Calculator() {
                   .catch((err) => {
                      console.log(err.message);
                   });
-                 // console.log('labBasedArr',labBasedArr);
+                  console.log('labBasedArr',labBasedArr);
                 
                 }
 
@@ -80,13 +81,15 @@ function Calculator() {
                         
                       }
 
-/*const getArr=()=>{
-   let newArray = labBasedArr.map((val)=>val[country])
-   console.log('newArray',newArray);
-   setCalArr(newArray)
-   
+const getArr=()=>{
+   let newArray = labBasedArr.filter((val) => {return(
+            val.region===region && val.gender===gender)
+   })
+   console.log('region',region)
+   console.log('gender',gender)
+   console.log('newArray',newArray)
 }
-*/
+
     
       
      return (
@@ -119,6 +122,7 @@ function Calculator() {
           <input className="form-control" type="number" placeholder="Systolic BP" />
           <input className="form-control" type="number" placeholder="Total cholestrol (in mmol)" />
           <p>{region}{gender}</p>
+          <button onClick={getArr}>getData</button>
         </div>
         );
   
