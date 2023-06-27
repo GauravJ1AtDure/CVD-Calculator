@@ -1,4 +1,4 @@
-const regionlists=[
+const regionlists=
     {'Bolivia' : 'Andean Latin America',
     'Ecuador' : 'Andean Latin America',
     'Peru' : 'Andean Latin America',
@@ -188,6 +188,5 @@ const regionlists=[
     'Chad' : 'Western Sub-Saharan Africa',
     'Togo' : 'Western Sub-Saharan Africa'}
     
-]
 
 export default regionlists;
