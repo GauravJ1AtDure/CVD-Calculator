@@ -5,7 +5,17 @@ const LabCalculation=(props)=> {
   const [cvdRiskValLab, setCvdRiskValLab]=useState();
   
 
-  let { labCalData, country, age, usrGender, smoking, diabetes, bp, cholestrol } = props;
+  let { labCalData, country, age, usrGender, smoking, diabetes, bp, cholestrol, btnTitle } = props;
+
+  if(btnTitle==='LAB BASED CVD RISK')
+  {
+    document.getElementById("labCalBtn").style.display = "none";
+  }
+  else if(btnTitle==='NON LAB BASED CVD RISK')
+  {
+    document.getElementById("labCalBtn").style.display = ""; 
+  }
+  
 
   let usrAge=parseInt(age)
   let usrBp=parseInt(bp)
@@ -61,13 +71,12 @@ const LabCalculation=(props)=> {
 
         finalCvdRiskPrediction=Math.round(calibratedProbCvd*100)
         setCvdRiskValLab(finalCvdRiskPrediction) 
-        console.log(cvdRiskValLab)
     }
 
 
   return (
     <div>
-      <button onClick={calLabCvd}>Calculate Lab Based CVD Risk</button>
+      <button id='labCalBtn' onClick={calLabCvd}>Calculate {btnTitle}</button>
       <p>{cvdRiskValLab}</p>
     </div>
   )

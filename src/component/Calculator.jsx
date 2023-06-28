@@ -20,6 +20,8 @@ function Calculator() {
   const [useEffectArr, setUseEffectArr] = useState(1);
   const [labCalArr, setLabCalArr] = useState([]);
   const [nonLabCalArr, setNonLabCalArr] = useState([]);
+  const [calTitle, setCalTitle] = useState('LAB BASED CVD RISK');
+
 
   const getCountryData = () => {
    fetch("https://ncd-pen.duredemos.com/json/countries?_format=json")
@@ -68,7 +70,7 @@ function Calculator() {
     });
     setLabCalArr(...labArray);
     setNonLabCalArr(...nonLabArray);
-    
+    // eslint-disable-next-line
   }, [useEffectArr]);
 
 
@@ -76,15 +78,19 @@ function Calculator() {
   setUseEffectArr(useEffectArr + 1);
   if(e.target.value==='LAB BASED CVD RISK')
   {
+    setCalTitle(e.target.value)
     document.getElementById("bmiSec").style.display = "none";
     document.getElementById("cholestrolSec").style.display = "";
     document.getElementById("diabetesSec").style.display = "";
+    
   }
-  else if(e.target.value==='NON LAB BASED CVD RISK')
+  else if(e.target.value !=='LAB BASED CVD RISK')
   {
+    setCalTitle(e.target.value)
     document.getElementById("cholestrolSec").style.display = "none";
     document.getElementById("diabetesSec").style.display = "none";
     document.getElementById("bmiSec").style.display = "";
+    
   }
  }
 
@@ -174,6 +180,7 @@ function Calculator() {
         diabetes={diabetes}
         bp={bp}
         cholestrol={cholestrol}
+        btnTitle={calTitle}
       />
       <NonLabCalculation nonLabcalData={nonLabCalArr}
         country={country}
@@ -182,6 +189,7 @@ function Calculator() {
         smoking={smoke}
         bp={bp}
         bmi={bmi}
+        btnTitle={calTitle}
       />
     </div>
   );
