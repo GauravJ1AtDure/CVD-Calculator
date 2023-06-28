@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import regionlists from "./RegionData";
-import Calculation from "./Calculation";
+import LabCalculation from "./LabCalculation";
+import NonLabCalculation from "./NonLabCalculation";
 
 function Calculator() {
   const [regionOfCountries, setRegionOfCountries] = useState(regionlists);
@@ -15,8 +16,10 @@ function Calculator() {
   const [bp, setBp] = useState();
   const [cholestrol, setCholestrol] = useState();
   const [diabetes, setDiabetes] = useState();
+  const [bmi, setBmi] = useState();
   const [useEffectArr, setUseEffectArr] = useState(1);
-  const [calArr, setCalArr] = useState([]);
+  const [labCalArr, setLabCalArr] = useState([]);
+  const [nonLabCalArr, setNonLabCalArr] = useState([]);
 
   const getCountryData = () => {
    fetch("https://ncd-pen.duredemos.com/json/countries?_format=json")
@@ -57,12 +60,33 @@ function Calculator() {
     getLabBasedData();
     getNonLabBasedData();
 
-    let newArray = labBasedArr.filter((val) => {
+    let labArray = labBasedArr.filter((val) => {
       return val.region === region && val.gender === gender;
     });
-    setCalArr(...newArray);
+    let nonLabArray = nonLabBasedArr.filter((val) => {
+      return val.region === region && val.gender === gender;
+    });
+    setLabCalArr(...labArray);
+    setNonLabCalArr(...nonLabArray);
     
   }, [useEffectArr]);
+
+
+ const setLabType=(e)=>{
+  setUseEffectArr(useEffectArr + 1);
+  if(e.target.value==='LAB BASED CVD RISK')
+  {
+    document.getElementById("bmiSec").style.display = "none";
+    document.getElementById("cholestrolSec").style.display = "";
+    document.getElementById("diabetesSec").style.display = "";
+  }
+  else if(e.target.value==='NON LAB BASED CVD RISK')
+  {
+    document.getElementById("cholestrolSec").style.display = "none";
+    document.getElementById("diabetesSec").style.display = "none";
+    document.getElementById("bmiSec").style.display = "";
+  }
+ }
 
 
   const updateRegion = (e, c) => {
@@ -102,10 +126,19 @@ function Calculator() {
     setUseEffectArr(useEffectArr + 1);
   };
 
+  const getBmi = (e) => {
+    setBmi(e.target.value);
+    setUseEffectArr(useEffectArr + 1);
+  }
+
+  
 
   return (
     <div className="container">
-      LAB BASED CVD RISK
+      <select className="form-select" aria-label="Default select example" onChange={setLabType}>
+        <option defaultValue>LAB BASED CVD RISK</option>
+        <option value="NON LAB BASED CVD RISK">NON-LAB BASED CVD RISK</option>
+        </select>
       <select className="form-select" aria-label="Default select example" onChange={updateRegion}>
         <option defaultValue>Select Country</option>
         {countryArr.map((elements, index) => {
@@ -125,14 +158,15 @@ function Calculator() {
         <option value="yes">Yes</option>
         <option value="no">No</option>
       </select>
-      <select className="form-select" aria-label="Default select example" onChange={getDiabetes}>
+      <select id="diabetesSec" className="form-select" aria-label="Default select example" onChange={getDiabetes}>
         <option defaultValue>Diabetes</option>
         <option value="yes">Yes</option>
         <option value="no">No</option>
       </select>
       <input className="form-control" type="number" placeholder="Systolic BP" onChange={getBp}/>
-      <input className="form-control" type="number" placeholder="Total cholestrol (in mmol)" onChange={getCholestrol}/>
-      <Calculation calData={calArr}
+      <input id="bmiSec" className="form-control" type="number" placeholder="BMI" onChange={getBmi}/>
+      <input id="cholestrolSec" className="form-control" type="number" placeholder="Total cholestrol (in mmol)" onChange={getCholestrol}/>
+      <LabCalculation labCalData={labCalArr}
         country={country}
         age={age}
         usrGender={gender}
@@ -140,6 +174,14 @@ function Calculator() {
         diabetes={diabetes}
         bp={bp}
         cholestrol={cholestrol}
+      />
+      <NonLabCalculation nonLabcalData={nonLabCalArr}
+        country={country}
+        age={age}
+        usrGender={gender}
+        smoking={smoke}
+        bp={bp}
+        bmi={bmi}
       />
     </div>
   );

@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
 
-const Calculation=(props)=> {
+const LabCalculation=(props)=> {
 
-  const [cvdRiskVal, setCvdRiskVal]=useState();
+  const [cvdRiskValLab, setCvdRiskValLab]=useState();
   
 
-  let { calData, country, age, usrGender, smoking, diabetes, bp, cholestrol } = props;
+  let { labCalData, country, age, usrGender, smoking, diabetes, bp, cholestrol } = props;
 
   let usrAge=parseInt(age)
   let usrBp=parseInt(bp)
@@ -22,9 +22,9 @@ const Calculation=(props)=> {
     rfSmoking=smoking==='yes'? 1 : 0 
 
 
-    const getArr1=(chdAge, chdChol, chdBp, chdDibetes, chdSmoking, chdTot, strokeAge, strokeChol, strokeBp, strokeDibetes, strokeSmoking, strokeTot, uncalibratedProbChd, calibratedProbChd, uncalibratedProbStroke, calibratedProbStroke, calibratedProbCvd, finalCvdRiskPrediction)=>{
+    const calLabCvd=(chdAge, chdChol, chdBp, chdDibetes, chdSmoking, chdTot, strokeAge, strokeChol, strokeBp, strokeDibetes, strokeSmoking, strokeTot, uncalibratedProbChd, calibratedProbChd, uncalibratedProbStroke, calibratedProbStroke, calibratedProbCvd, finalCvdRiskPrediction)=>{
 
-      let { title, region, gender, age_chd, age_stroke, chol_chd_1, chol_chd_2, chol_stroke_1, chol_stroke_2, sys_chd_1, sys_chd_2, sys_stroke_1, sys_stroke_2, diab_chd_1, diab_chd_2, diab_stroke_1, diab_stroke_2, smok_chd_1, smok_chd_2, smok_stroke_1, smok_stroke_2, uncalibrated_chd, calibrated_chd1, calibrated_chd2, uncalibrated_stroke, calibrated_stroke1, calibrated_stroke2 } = calData;
+      let { title, region, gender, age_chd, age_stroke, chol_chd_1, chol_chd_2, chol_stroke_1, chol_stroke_2, sys_chd_1, sys_chd_2, sys_stroke_1, sys_stroke_2, diab_chd_1, diab_chd_2, diab_stroke_1, diab_stroke_2, smok_chd_1, smok_chd_2, smok_stroke_1, smok_stroke_2, uncalibrated_chd, calibrated_chd1, calibrated_chd2, uncalibrated_stroke, calibrated_stroke1, calibrated_stroke2 } = labCalData;
 
 
         chdAge=age_chd*rfAge
@@ -60,17 +60,17 @@ const Calculation=(props)=> {
         calibratedProbCvd = 1-(1-calibratedProbChd)*(1-calibratedProbStroke)
 
         finalCvdRiskPrediction=Math.round(calibratedProbCvd*100)
-        setCvdRiskVal(finalCvdRiskPrediction) 
-        console.log(cvdRiskVal)
+        setCvdRiskValLab(finalCvdRiskPrediction) 
+        console.log(cvdRiskValLab)
     }
 
 
   return (
     <div>
-      <button onClick={getArr1}>Calculate CVD Risk</button>
-      <p>{cvdRiskVal}</p>
+      <button onClick={calLabCvd}>Calculate Lab Based CVD Risk</button>
+      <p>{cvdRiskValLab}</p>
     </div>
   )
 }
 
-export default Calculation;
+export default LabCalculation;
