@@ -3,19 +3,9 @@ import React, {useState} from 'react'
 const LabCalculation=(props)=> {
 
   const [cvdRiskValLab, setCvdRiskValLab]=useState();
-  
 
-  let { labCalData, country, age, usrGender, smoking, diabetes, bp, cholestrol, btnTitle } = props;
+  let { labCalData, country, age, usrGender, smoking, diabetes, bp, cholestrol } = props;
 
-  if(btnTitle==='LAB BASED CVD RISK')
-  {
-    document.getElementById("labCalBtn").style.display = "none";
-  }
-  else if(btnTitle==='NON LAB BASED CVD RISK')
-  {
-    document.getElementById("labCalBtn").style.display = ""; 
-  }
-  
 
   let usrAge=parseInt(age)
   let usrBp=parseInt(bp)
@@ -72,12 +62,13 @@ const LabCalculation=(props)=> {
         finalCvdRiskPrediction=Math.round(calibratedProbCvd*100)
         setCvdRiskValLab(finalCvdRiskPrediction) 
     }
-
+    const getVal=()=>{console.log('labCalData',labCalData)}
 
   return (
     <div>
-      <button id='labCalBtn' onClick={calLabCvd}>Calculate {btnTitle}</button>
+      <button id='labCalBtn' className='btn btn-sm btn-primary my-1' onClick={calLabCvd}>CALCULATE LAB BASED CVD</button>
       <p>{cvdRiskValLab}</p>
+      <button onClick={getVal}>get labCalData</button>
     </div>
   )
 }
