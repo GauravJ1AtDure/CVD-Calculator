@@ -26,6 +26,12 @@ const LabCalculation=(props)=> {
 
       let { title, region, gender, age_chd, age_stroke, chol_chd_1, chol_chd_2, chol_stroke_1, chol_stroke_2, sys_chd_1, sys_chd_2, sys_stroke_1, sys_stroke_2, diab_chd_1, diab_chd_2, diab_stroke_1, diab_stroke_2, smok_chd_1, smok_chd_2, smok_stroke_1, smok_stroke_2, uncalibrated_chd, calibrated_chd1, calibrated_chd2, uncalibrated_stroke, calibrated_stroke1, calibrated_stroke2 } = labCalData;
 
+      if(age==='' && usrGender==='' && smoking==='' && diabetes==='' && bp==='' && cholestrol==='')
+      {
+        let usrMessage='no Value';
+        setCvdRiskValLab(usrMessage)
+
+      }
 
         chdAge=age_chd*rfAge
         chdChol=chol_chd_1*rfCholestrol-chol_chd_2*rfAge*rfCholestrol
@@ -61,14 +67,18 @@ const LabCalculation=(props)=> {
 
         finalCvdRiskPrediction=Math.round(calibratedProbCvd*100)
         setCvdRiskValLab(finalCvdRiskPrediction) 
+      
+        console.log('cvdRiskValLab',cvdRiskValLab)
     }
-    const getVal=()=>{console.log('labCalData',labCalData)}
+
+    
+     
+    
 
   return (
     <div>
-      <button id='labCalBtn' className='btn btn-sm btn-primary my-1' onClick={calLabCvd}>CALCULATE LAB BASED CVD</button>
+      <button id='labCalBtn' disabled={!labCalData} className='btn btn-sm btn-primary my-1' onClick={calLabCvd}>CALCULATE LAB BASED CVD</button>
       <p>{cvdRiskValLab}</p>
-      <button onClick={getVal}>get labCalData</button>
     </div>
   )
 }

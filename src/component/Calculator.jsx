@@ -10,7 +10,7 @@ function Calculator() {
   const [nonLabBasedArr, setNonLabBasedArr] = useState([]);
   const [country, setCountry] = useState('');
   const [region, setRegion] = useState();
-  const [gender, setGender] = useState('Gender');
+  const [gender, setGender] = useState('');
   const [age, setAge] = useState();
   const [smoke, setSmoke] = useState('');
   const [bp, setBp] = useState();
@@ -121,7 +121,7 @@ function Calculator() {
     <div className="container d-flex justify-content-around">
       <div className="lab_cvd">LAB BASED CVD RISK
       <select className="form-select" aria-label="Default select example" onChange={updateRegion}>
-        <option defaultValue>Select Country</option>
+        <option value="">Select Country</option>
         {countryArr.map((elements, index) => {
           return (
             <option key={index} value={elements.country}>{elements.country}</option>
@@ -130,17 +130,17 @@ function Calculator() {
       </select>
       <input className="form-control" type="number" placeholder="Age (40 to 74 years only)" onChange={getAge}/>
       <select className="form-select" aria-label="Default select example" onChange={changeGender}>
-        <option defaultValue>Gender</option>
+        <option value="">Gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
       </select>
       <select className="form-select" aria-label="Default select example" onChange={getSmoke}>
-        <option defaultValue>Smoking</option>
+        <option value="">Smoking</option>
         <option value="yes">Yes</option>
         <option value="no">No</option>
       </select>
       <select id="diabetesSec" className="form-select" aria-label="Default select example" onChange={getDiabetes}>
-        <option defaultValue>Diabetes</option>
+        <option value="">Diabetes</option>
         <option value="yes">Yes</option>
         <option value="no">No</option>
       </select>
@@ -158,7 +158,7 @@ function Calculator() {
       </div>
       <div className="nonlab_cvd">NON LAB BASED CVD RISK
       <select className="form-select" aria-label="Default select example" onChange={updateRegion}>
-        <option defaultValue>Select Country</option>
+        <option value="">Select Country</option>
         {countryArr.map((elements, index) => {
           return (
             <option key={index} value={elements.country}>{elements.country}</option>
@@ -167,24 +167,24 @@ function Calculator() {
       </select>
       <input className="form-control" type="number" placeholder="Age (40 to 74 years only)" onChange={getAge}/>
       <select className="form-select" aria-label="Default select example" onChange={changeGender}>
-        <option defaultValue>Gender</option>
+        <option value="">Gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
       </select>
       <select className="form-select" aria-label="Default select example" onChange={getSmoke}>
-        <option defaultValue>Smoking</option>
+        <option value="">Smoking</option>
         <option value="yes">Yes</option>
         <option value="no">No</option>
       </select>
       <input className="form-control" type="number" placeholder="Systolic BP" onChange={getBp}/>
       <input id="bmiSec" className="form-control" type="number" placeholder="BMI" onChange={getBmi}/>
       <NonLabCalculation nonLabcalData={nonLabCalArr}
-        country={country}
-        age={age}
-        usrGender={gender}
-        smoking={smoke}
-        bp={bp}
-        bmi={bmi}
+        nonLabCountry={country}
+        nonLabAge={age}
+        nonLabGender={gender}
+        nonLabSmoking={smoke}
+        nonLabBp={bp}
+        nonLabBmi={bmi}
       />
       </div>
     </div>

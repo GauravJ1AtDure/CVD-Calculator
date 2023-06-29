@@ -3,19 +3,19 @@ import React, {useState} from 'react'
 function NonLabCalculation(props) {
   const [cvdRiskValNonLab, setCvdRiskValNonLab]=useState();
 
-  let { nonLabcalData, country, age, usrGender, smoking, bp, bmi } = props;
+  let { nonLabcalData, nonLabCountry, nonLabAge, nonLabGender, nonLabSmoking, nonLabBp, nonLabBmi } = props;
 
   
-  let usrAge=parseInt(age)
-  let usrBp=parseInt(bp)
-  let usrBmi=parseFloat(bmi)
+  let usrAge=parseInt(nonLabAge)
+  let usrBp=parseInt(nonLabBp)
+  let usrBmi=parseFloat(nonLabBmi)
 
   let rfAge, rfSmoking, rfSysBp, rfBmi ;
 
 
     rfAge=usrAge-60
     rfSysBp=usrBp-120
-    rfSmoking=smoking==='yes'? 1 : 0 
+    rfSmoking=nonLabSmoking==='yes'? 1 : 0 
     rfBmi=usrBmi-6
   
 
@@ -60,7 +60,7 @@ function NonLabCalculation(props) {
 
   return (
     <div>
-      <button id='nonLabCalBtn' className="btn btn-sm btn-primary my-1" onClick={calNonLabCvd}>CALCULATE NON LAB BASED CVD</button>
+      <button id='nonLabCalBtn' disabled={!nonLabcalData} className="btn btn-sm btn-primary my-1" onClick={calNonLabCvd}>CALCULATE NON LAB BASED CVD</button>
       <p>{cvdRiskValNonLab}</p>
     </div>
   )
