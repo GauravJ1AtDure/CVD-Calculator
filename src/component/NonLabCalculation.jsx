@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 
 function NonLabCalculation(props) {
   const [cvdRiskValNonLab, setCvdRiskValNonLab]=useState();
+  const [style, setStyle]=useState(); 
 
   let { nonLabcalData, nonLabCountry, nonLabAge, nonLabGender, nonLabSmoking, nonLabBp, nonLabBmi } = props;
 
@@ -52,16 +53,37 @@ function NonLabCalculation(props) {
         calibratedProbCvd = 1-(1-calibratedProbChd)*(1-calibratedProbStroke)
 
         finalCvdRiskPrediction=Math.round(calibratedProbCvd*100)
-        setCvdRiskValNonLab(finalCvdRiskPrediction) 
-
-
+        if(finalCvdRiskPrediction >= 30)
+        {
+          setStyle({backgroundColor:'brown', 
+          color: 'white',
+          fontSize: '40px', 
+          textAlign: 'center',
+          padding: '5px',
+          borderRadius: '15px'
+        })
+        }
+        else if (finalCvdRiskPrediction < 30)
+        {
+          setStyle({backgroundColor:'chartreuse', 
+          color: 'black',
+          fontSize: '40px',
+          textAlign: 'center',
+          padding: '5px',
+          borderRadius: '15px'
+        })
+        }
+  
+        let c = finalCvdRiskPrediction >= 30 ? '≥30' : finalCvdRiskPrediction
+        setCvdRiskValNonLab(c+'%') 
 
   }
 
   return (
     <div>
       <button id='nonLabCalBtn' disabled={!nonLabcalData} className="btn btn-sm btn-primary my-1" onClick={calNonLabCvd}>CALCULATE NON LAB BASED CVD</button>
-      <p>{cvdRiskValNonLab}</p>
+
+   <div style={{textAlign:'center', border: 'solid 0.1px black', padding: '5px', backgroundColor: '#34c717', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span style={style}>{cvdRiskValNonLab}</span></div>
     </div>
   )
 }

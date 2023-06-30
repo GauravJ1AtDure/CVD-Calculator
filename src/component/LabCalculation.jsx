@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 const LabCalculation=(props)=> {
 
   const [cvdRiskValLab, setCvdRiskValLab]=useState();
+  const [style, setStyle]=useState(); 
 
   let { labCalData, country, age, usrGender, smoking, diabetes, bp, cholestrol } = props;
 
@@ -66,19 +67,38 @@ const LabCalculation=(props)=> {
         calibratedProbCvd = 1-(1-calibratedProbChd)*(1-calibratedProbStroke)
 
         finalCvdRiskPrediction=Math.round(calibratedProbCvd*100)
-        setCvdRiskValLab(finalCvdRiskPrediction) 
-      
-        console.log('cvdRiskValLab',cvdRiskValLab)
-    }
 
-    
-     
-    
+        if(finalCvdRiskPrediction >= 30)
+        {
+          setStyle({backgroundColor:'brown', 
+          color: 'white',
+          fontSize: '40px', 
+          textAlign: 'center',
+          padding: '5px',
+          borderRadius: '15px'
+        })
+        }
+        else if (finalCvdRiskPrediction < 30)
+        {
+          setStyle({backgroundColor:'chartreuse', 
+          color: 'black',
+          fontSize: '40px',
+          textAlign: 'center',
+          padding: '5px',
+          borderRadius: '15px'
+        })
+        }
+
+        let c = finalCvdRiskPrediction >= 30 ? '≥30' : finalCvdRiskPrediction
+        setCvdRiskValLab(c+'%') 
+      
+    }
+ 
 
   return (
     <div>
       <button id='labCalBtn' disabled={!labCalData} className='btn btn-sm btn-primary my-1' onClick={calLabCvd}>CALCULATE LAB BASED CVD</button>
-      <p>{cvdRiskValLab}</p>
+      <div style={{textAlign:'center', border: 'solid 0.1px black', padding: '5px', backgroundColor: '#34c717', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span style={style}>{cvdRiskValLab}</span></div>
     </div>
   )
 }
