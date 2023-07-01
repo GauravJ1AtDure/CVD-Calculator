@@ -196,6 +196,7 @@ function Calculator() {
         diabetes={diabetes}
         bp={bp}
         cholestrol={cholestrol}
+        updateKey={useEffectArr}
       />
       </div>
       <div className="nonlab_cvd">NON LAB BASED CVD RISK
@@ -228,6 +229,7 @@ function Calculator() {
         nonLabSmoking={nonLabSmoke}
         nonLabBp={nonLabBp}
         nonLabBmi={bmi}
+        updateKey={useEffectArr}
       />
       </div>
     </div>

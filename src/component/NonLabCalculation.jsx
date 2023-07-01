@@ -4,7 +4,7 @@ function NonLabCalculation(props) {
   const [cvdRiskValNonLab, setCvdRiskValNonLab]=useState();
   const [style, setStyle]=useState(); 
 
-  let { nonLabcalData, nonLabCountry, nonLabAge, nonLabGender, nonLabSmoking, nonLabBp, nonLabBmi } = props;
+  let { nonLabcalData, nonLabCountry, nonLabAge, nonLabGender, nonLabSmoking, nonLabBp, nonLabBmi, updateKey } = props;
 
   
   let usrAge=parseInt(nonLabAge)
@@ -78,12 +78,16 @@ function NonLabCalculation(props) {
         setCvdRiskValNonLab(c+'%') 
 
   }
+  const getData=()=>{
+    console.log('nonLabcalData',nonLabcalData)
+  }
 
   return (
     <div>
       <button id='nonLabCalBtn' disabled={!nonLabcalData} className="btn btn-sm btn-primary my-1" onClick={calNonLabCvd}>CALCULATE NON LAB BASED CVD</button>
 
-   <div style={{textAlign:'center', border: 'solid 0.1px black', padding: '5px', backgroundColor: '#34c717', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span style={style}>{cvdRiskValNonLab}</span></div>
+   <div style={{textAlign:'center', border: 'solid 0.1px black', padding: '5px', backgroundColor: '#34c717', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span key={updateKey} style={style}>{cvdRiskValNonLab}</span></div>
+   <button onClick={getData}>get nonlab data</button>
     </div>
   )
 }

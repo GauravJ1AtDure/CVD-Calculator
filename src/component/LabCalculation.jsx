@@ -5,7 +5,7 @@ const LabCalculation=(props)=> {
   const [cvdRiskValLab, setCvdRiskValLab]=useState();
   const [style, setStyle]=useState(); 
 
-  let { labCalData, country, age, usrGender, smoking, diabetes, bp, cholestrol } = props;
+  let { labCalData, country, age, usrGender, smoking, diabetes, bp, cholestrol, updateKey } = props;
 
 
   let usrAge=parseInt(age)
@@ -93,12 +93,13 @@ const LabCalculation=(props)=> {
         setCvdRiskValLab(c+'%') 
       
     }
+
  
 
   return (
     <div>
       <button id='labCalBtn' disabled={!labCalData} className='btn btn-sm btn-primary my-1' onClick={calLabCvd}>CALCULATE LAB BASED CVD</button>
-      <div style={{textAlign:'center', border: 'solid 0.1px black', padding: '5px', backgroundColor: '#34c717', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span style={style}>{cvdRiskValLab}</span></div>
+      <div key={updateKey} style={{textAlign:'center', border: 'solid 0.1px black', padding: '5px', backgroundColor: '#34c717', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span style={style}>{cvdRiskValLab}</span></div>
     </div>
   )
 }
