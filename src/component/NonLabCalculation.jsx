@@ -16,7 +16,7 @@ function NonLabCalculation(props) {
 
     rfAge=usrAge-60
     rfSysBp=usrBp-120
-    rfSmoking=nonLabSmoking==='yes'? 1 : 0 
+    rfSmoking=parseInt(nonLabSmoking)
     rfBmi=usrBmi-6
   
 
@@ -73,21 +73,31 @@ function NonLabCalculation(props) {
           borderRadius: '15px'
         })
         }
-  
-        let c = finalCvdRiskPrediction >= 30 ? '≥30' : finalCvdRiskPrediction
-        setCvdRiskValNonLab(c+'%') 
+        else if (isNaN(finalCvdRiskPrediction))
+        {
+
+          setStyle({backgroundColor:'burlywood', 
+          color: 'black',
+          fontSize: '14px',
+          textAlign: 'center',
+          padding: '5px',
+          borderRadius: '15px'
+        })
+        }
+
+
+        let c = finalCvdRiskPrediction >= 30 ? '≥30' : finalCvdRiskPrediction+'%'
+        c = isNaN(finalCvdRiskPrediction) ? 'Please fill in all the fields and correct values.' : c
+        setCvdRiskValNonLab(c) 
 
   }
-  const getData=()=>{
-    console.log('nonLabcalData',nonLabcalData)
-  }
+  
 
   return (
     <div>
       <button id='nonLabCalBtn' disabled={!nonLabcalData} className="btn btn-sm btn-primary my-1" onClick={calNonLabCvd}>CALCULATE NON LAB BASED CVD</button>
 
    <div style={{textAlign:'center', border: 'solid 0.1px black', padding: '5px', backgroundColor: '#34c717', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span key={updateKey} style={style}>{cvdRiskValNonLab}</span></div>
-   <button onClick={getData}>get nonlab data</button>
     </div>
   )
 }

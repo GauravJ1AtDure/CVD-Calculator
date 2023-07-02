@@ -1,9 +1,12 @@
 import React, {useState} from 'react'
 
+
 const LabCalculation=(props)=> {
 
   const [cvdRiskValLab, setCvdRiskValLab]=useState();
   const [style, setStyle]=useState(); 
+
+  
 
   let { labCalData, country, age, usrGender, smoking, diabetes, bp, cholestrol, updateKey } = props;
 
@@ -13,26 +16,21 @@ const LabCalculation=(props)=> {
   let usrChol=parseFloat(cholestrol)
   
   
-    let rfAge, rfTotChol, rfCholestrol, rfSysBp, rfDibetes, rfSmoking;
+  let rfAge, rfTotChol, rfCholestrol, rfSysBp, rfDibetes, rfSmoking;
+
 
     rfAge=usrAge-60
     rfTotChol=usrChol-6
     rfCholestrol=parseFloat(rfTotChol)
     rfSysBp=usrBp-120
-    rfDibetes=diabetes==='yes'? 1 : 0
-    rfSmoking=smoking==='yes'? 1 : 0 
+    rfDibetes=parseInt(diabetes)
+    rfSmoking=parseInt(smoking)
 
 
     const calLabCvd=(chdAge, chdChol, chdBp, chdDibetes, chdSmoking, chdTot, strokeAge, strokeChol, strokeBp, strokeDibetes, strokeSmoking, strokeTot, uncalibratedProbChd, calibratedProbChd, uncalibratedProbStroke, calibratedProbStroke, calibratedProbCvd, finalCvdRiskPrediction)=>{
 
       let { title, region, gender, age_chd, age_stroke, chol_chd_1, chol_chd_2, chol_stroke_1, chol_stroke_2, sys_chd_1, sys_chd_2, sys_stroke_1, sys_stroke_2, diab_chd_1, diab_chd_2, diab_stroke_1, diab_stroke_2, smok_chd_1, smok_chd_2, smok_stroke_1, smok_stroke_2, uncalibrated_chd, calibrated_chd1, calibrated_chd2, uncalibrated_stroke, calibrated_stroke1, calibrated_stroke2 } = labCalData;
 
-      if(age==='' && usrGender==='' && smoking==='' && diabetes==='' && bp==='' && cholestrol==='')
-      {
-        let usrMessage='no Value';
-        setCvdRiskValLab(usrMessage)
-
-      }
 
         chdAge=age_chd*rfAge
         chdChol=chol_chd_1*rfCholestrol-chol_chd_2*rfAge*rfCholestrol
@@ -78,7 +76,7 @@ const LabCalculation=(props)=> {
           borderRadius: '15px'
         })
         }
-        else if (finalCvdRiskPrediction < 30)
+        else if (finalCvdRiskPrediction < 30) 
         {
           setStyle({backgroundColor:'chartreuse', 
           color: 'black',
@@ -88,17 +86,32 @@ const LabCalculation=(props)=> {
           borderRadius: '15px'
         })
         }
+        else if (isNaN(finalCvdRiskPrediction))
+        {
 
-        let c = finalCvdRiskPrediction >= 30 ? '≥30' : finalCvdRiskPrediction
-        setCvdRiskValLab(c+'%') 
-      
+          setStyle({backgroundColor:'burlywood', 
+          color: 'black',
+          fontSize: '14px',
+          textAlign: 'center',
+          padding: '5px',
+          borderRadius: '15px'
+        })
+        }
+       
+
+        let c = finalCvdRiskPrediction >= 30 ? '≥30' : finalCvdRiskPrediction+'%'
+        c = isNaN(finalCvdRiskPrediction) ? 'Please fill in all the fields and correct values.' : c
+        setCvdRiskValLab(c) 
+       
+        
     }
 
  
 
   return (
     <div>
-      <button id='labCalBtn' disabled={!labCalData} className='btn btn-sm btn-primary my-1' onClick={calLabCvd}>CALCULATE LAB BASED CVD</button>
+      <button id='labCalBtn' disabled={!labCalData} className='btn btn-sm btn-primary my-1' 
+      onClick={calLabCvd}>CALCULATE LAB BASED CVD</button>
       <div key={updateKey} style={{textAlign:'center', border: 'solid 0.1px black', padding: '5px', backgroundColor: '#34c717', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span style={style}>{cvdRiskValLab}</span></div>
     </div>
   )

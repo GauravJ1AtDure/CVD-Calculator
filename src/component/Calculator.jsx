@@ -4,6 +4,7 @@ import LabCalculation from "./LabCalculation";
 import NonLabCalculation from "./NonLabCalculation";
 
 function Calculator() {
+  const ageArr=[40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74]
   const [regionOfCountries, setRegionOfCountries] = useState(regionlists);
   const [nonLabRegionOfCountries, setNonLabRegionOfCountries] = useState(regionlists);
   const [countryArr, setCountryArr] = useState([]);
@@ -170,7 +171,14 @@ function Calculator() {
           );
         })}
       </select>
-      <input className="form-control" type="number" min='40' max='74' placeholder="Age (40 to 74 years only)" onChange={getAge}/><span className="badge text-bg-warning">{age === undefined ? '' : ''}</span><span className="badge text-bg-warning">{age > 74 ? 'Age should be between 40 to 74' : ''}</span><span className="badge text-bg-warning">{age < 40 ? 'Age should be between 40 to 74' : ''}</span>
+      <select className="form-select" aria-label="Default select example" onChange={getAge}>
+        <option value="">Age (40 to 74 years only)</option>
+        {ageArr.map((x, ind) => {
+          return (
+            <option key={ind} value={x}>{x}</option>
+          );
+        })}
+      </select>
       <select className="form-select" aria-label="Default select example" onChange={changeGender}>
         <option value="">Gender</option>
         <option value="Male">Male</option>
@@ -178,13 +186,13 @@ function Calculator() {
       </select>
       <select className="form-select" aria-label="Default select example" onChange={getSmoke}>
         <option value="">Smoking</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
       </select>
       <select id="diabetesSec" className="form-select" aria-label="Default select example" onChange={getDiabetes}>
         <option value="">Diabetes</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value='1'>Yes</option>
+        <option value="0">No</option>
       </select>
       <input className="form-control" type="number" placeholder="Systolic BP" onChange={getBp}/>
       <input id="cholestrolSec" className="form-control" type="number" placeholder="Total cholestrol (in mmol)" onChange={getCholestrol}/>
@@ -208,17 +216,23 @@ function Calculator() {
           );
         })}
       </select>
-      <input className="form-control" type="number" placeholder="Age (40 to 74 years only)" onChange={getNonLabAge}/>
-      <span className="badge text-bg-warning">{nonLabAge === undefined ? '' : ''}</span><span className="badge text-bg-warning">{nonLabAge > 74 ? 'Age should be between 40 to 74' : ''}</span><span className="badge text-bg-warning">{nonLabAge < 40 ? 'Age should be between 40 to 74' : ''}</span>
-      <select className="form-select" aria-label="Default select example" onChange={changeNonLabGender}>
+      <select className="form-select" aria-label="Default select example" onChange={getNonLabAge}>
+        <option value="">Age (40 to 74 years only)</option>
+        {ageArr.map((y, ind) => {
+          return (
+            <option key={ind} value={y}>{y}</option>
+          );
+        })}
+      </select>
+      <select className="form-select" aria-label="Default select example"  onChange={changeNonLabGender}>
         <option value="">Gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
       </select>
       <select className="form-select" aria-label="Default select example" onChange={getNonLabSmoke}>
         <option value="">Smoking</option>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
       </select>
       <input className="form-control" type="number" placeholder="Systolic BP" onChange={getNonLabBp}/>
       <input id="bmiSec" className="form-control" type="number" placeholder="BMI" onChange={getBmi}/>
