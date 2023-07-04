@@ -112,7 +112,7 @@ const LabCalculation=(props)=> {
     <div>
       <button id='labCalBtn' disabled={!labCalData} className='btn btn-sm btn-primary my-1' 
       onClick={calLabCvd}>CALCULATE LAB BASED CVD</button>
-      <div key={updateKey} style={{textAlign:'center', border: 'solid 0.1px black', padding: '5px', backgroundColor: '#34c717', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span style={style}>{cvdRiskValLab}</span></div>
+      <div key={updateKey} style={{textAlign:'center', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', padding: '5px', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span style={style}>{cvdRiskValLab}</span></div>
     </div>
   )
 }

@@ -17,7 +17,7 @@ function NonLabCalculation(props) {
     rfAge=usrAge-60
     rfSysBp=usrBp-120
     rfSmoking=parseInt(nonLabSmoking)
-    rfBmi=usrBmi-6
+    rfBmi=usrBmi-25
   
 
   const calNonLabCvd = (chdAge, chdBmi, chdBp, chdSmoking, chdTot, strokeAge, strokeBmi, strokeBp, strokeSmoking, strokeTot, uncalibratedProbChd, calibratedProbChd, uncalibratedProbStroke, calibratedProbStroke, calibratedProbCvd, finalCvdRiskPrediction) =>{
@@ -38,17 +38,17 @@ function NonLabCalculation(props) {
 
         uncalibratedProbChd = (1-uncalibrated_chd ** Math.exp(chdTot))
         
-        let calibrated_chd1Int=parseFloat(calibrated_chd1)
-        let calibrated_chd2Int=parseFloat(calibrated_chd2)
+        let calibrated_chd1Float=parseFloat(calibrated_chd1)
+        let calibrated_chd2Float=parseFloat(calibrated_chd2)
         
-        calibratedProbChd = 1-Math.exp(-Math.exp(calibrated_chd1Int+calibrated_chd2Int*Math.log(-Math.log(1-uncalibratedProbChd))))
+        calibratedProbChd = 1-Math.exp(-Math.exp(calibrated_chd1Float+calibrated_chd2Float*Math.log(-Math.log(1-uncalibratedProbChd))))
 
         uncalibratedProbStroke = 1-uncalibrated_stroke ** Math.exp(strokeTot)
 
-        let calibrated_stroke1Int=parseFloat(calibrated_stroke1)
-        let calibrated_stroke2Int=parseFloat(calibrated_stroke2)
+        let calibrated_stroke1Float=parseFloat(calibrated_stroke1)
+        let calibrated_stroke2Float=parseFloat(calibrated_stroke2)
         
-        calibratedProbStroke = 1-Math.exp(-Math.exp(calibrated_stroke1Int+calibrated_stroke2Int*Math.log(-Math.log(1-uncalibratedProbStroke))))
+        calibratedProbStroke = 1-Math.exp(-Math.exp(calibrated_stroke1Float+calibrated_stroke2Float*Math.log(-Math.log(1-uncalibratedProbStroke))))
 
         calibratedProbCvd = 1-(1-calibratedProbChd)*(1-calibratedProbStroke)
 
@@ -97,7 +97,7 @@ function NonLabCalculation(props) {
     <div>
       <button id='nonLabCalBtn' disabled={!nonLabcalData} className="btn btn-sm btn-primary my-1" onClick={calNonLabCvd}>CALCULATE NON LAB BASED CVD</button>
 
-   <div style={{textAlign:'center', border: 'solid 0.1px black', padding: '5px', backgroundColor: '#34c717', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span key={updateKey} style={style}>{cvdRiskValNonLab}</span></div>
+   <div style={{textAlign:'center', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', padding: '5px', fontWeight:'bold'}} >10 year risk of a CVD event<br/><span key={updateKey} style={style}>{cvdRiskValNonLab}</span></div>
     </div>
   )
 }
