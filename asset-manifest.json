@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/CVD-Calculator/static/css/main.e6c13ad2.css",
+    "main.js": "/CVD-Calculator/static/js/main.f960c167.js",
+    "static/js/787.e9f65a39.chunk.js": "/CVD-Calculator/static/js/787.e9f65a39.chunk.js",
+    "index.html": "/CVD-Calculator/index.html",
+    "main.e6c13ad2.css.map": "/CVD-Calculator/static/css/main.e6c13ad2.css.map",
+    "main.f960c167.js.map": "/CVD-Calculator/static/js/main.f960c167.js.map",
+    "787.e9f65a39.chunk.js.map": "/CVD-Calculator/static/js/787.e9f65a39.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.f960c167.js"
+  ]
+}
